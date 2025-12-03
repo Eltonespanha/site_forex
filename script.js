@@ -4,6 +4,7 @@ const taxaConversaoReais = 5.32; // valor manual da célula G11 da Tabela 3
 // Recupera valores salvos
 document.getElementById('contratos').value = localStorage.getItem('contratos') || '0.01';
 document.getElementById('precoMedio').value = localStorage.getItem('precoMedio') || '1.10000';
+document.getElementById('operacao').value = localStorage.getItem('operacao') || 'compra';
 
 async function atualizarTabela() {
   try {
@@ -21,13 +22,22 @@ async function atualizarTabela() {
 
     const contratos = parseFloat(document.getElementById('contratos').value) || 0;
     const precoMedio = parseFloat(document.getElementById('precoMedio').value) || 0;
+    const operacao = document.getElementById('operacao').value;
 
-    const pips = ((valorAtual - precoMedio) / 0.0001);
+    // Cálculo de PIPS ajustado para Compra/Venda
+    let pips;
+    if (operacao === 'compra') {
+      pips = (valorAtual - precoMedio) / 0.0001;
+    } else {
+      pips = (precoMedio - valorAtual) / 0.0001;
+    }
+
     const dolar = pips * (contratos * 10);
     const reais = dolar * taxaConversaoReais;
 
-    document.getElementById('hora').textContent = horaAtual;
+    // Atualiza células
     document.getElementById('data').textContent = dataAtual;
+    document.getElementById('hora').textContent = horaAtual;
     document.getElementById('valorAtual').textContent = valorAtual.toFixed(5);
     document.getElementById('pips').textContent = pips.toFixed(2);
     document.getElementById('dolar').textContent = dolar.toFixed(2);
@@ -53,5 +63,10 @@ document.getElementById('contratos').addEventListener('input', () => {
 
 document.getElementById('precoMedio').addEventListener('input', () => {
   localStorage.setItem('precoMedio', document.getElementById('precoMedio').value);
+  atualizarTabela();
+});
+
+document.getElementById('operacao').addEventListener('change', () => {
+  localStorage.setItem('operacao', document.getElementById('operacao').value);
   atualizarTabela();
 });
