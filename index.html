@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Cotação EUR/USD</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Cotação EUR/USD</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>HORA</th>
+        <th>DATA</th>
+        <th>CONTRATOS</th>
+        <th>PREÇO MÉDIO</th>
+        <th>VALOR ATUAL</th>
+        <th>PIPS</th>
+        <th>DÓLAR</th>
+        <th>REAIS</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="hora"></td>
+        <td id="data"></td>
+        <td><input type="number" id="contratos" step="0.01"></td>
+        <td><input type="number" id="precoMedio" step="0.00001"></td>
+        <td id="valorAtual"></td>
+        <td id="pips"></td>
+        <td id="dolar"></td>
+        <td id="reais"></td>
+      </tr>
+    </tbody>
+  </table>
+  <script src="script.js"></script>
+</body>
+</html>
